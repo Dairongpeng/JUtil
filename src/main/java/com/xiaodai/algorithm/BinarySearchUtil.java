@@ -5,7 +5,7 @@ package com.xiaodai.algorithm;
  * Date   ：2020/12/25 3:52 下午
  * Description：
  */
-public class BinarySearch {
+public class BinarySearchUtil {
 
     /**
      * 二分查找，存在返回true
