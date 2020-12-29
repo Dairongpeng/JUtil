@@ -143,4 +143,52 @@ public class AdvancedSortUtil {
         arr[j] = tmp;
     }
 
+
+    /**
+     * 堆排序
+     * @param arr
+     */
+    public static void heapSort(int[] arr) {
+
+        if(arr == null || arr.length < 2) {
+            return;
+        }
+
+
+        /**
+         * 把数组构建成大根堆,经过这层循环，堆顶元素是最大值元素
+         */
+        for (int i = arr.length -1; i >= 0; i--) {
+            HeapUtil.heapify(arr, i, arr.length);
+        }
+
+
+        int heapSize = arr.length;
+        /**
+         * 堆顶元素和数组最右侧交换，最大的放最右
+         */
+        swap(arr, 0, --heapSize);
+
+        /**
+         * 最大值已经在最右后，从头开始对每个位置进行下沉操作
+         */
+        while (heapSize > 0) {
+            // 此时的堆大小，已经在上一步的基础上减1了，在新的堆大小上进行堆调整
+            HeapUtil.heapify(arr, 0, heapSize);
+            // 每次调整后，堆大小减小1，在新的堆大小（堆大小>0）上继续调整，直至全部调整完毕，整个数组从小到大有序
+            swap(arr, 0, --heapSize);
+        }
+    }
+
+    public static void main(String[] args) {
+        int[] arr = new int[] {1, 6, 3, 5, 2, 7, 2, 4, 8, 3};
+
+        heapSort(arr);
+
+        for (int i = 0; i < arr.length; i++) {
+            System.out.println(arr[i]);
+        }
+    }
+
+
 }
