@@ -16,13 +16,16 @@ public class StackAndQueueByArrUtil {
 
         private int index = -1;
 
+        private int limit;
+
         // 构造栈大小，int类型初始默认都是0
         public MyStack(int limit) {
             stack = new int[limit];
+            this.limit = limit;
         }
 
         public void push(int value) {
-            if(index >= 10) {
+            if(index >= limit) {
                 System.out.println("栈满了");
                 return;
             }

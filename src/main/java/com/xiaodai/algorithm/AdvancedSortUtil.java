@@ -57,7 +57,7 @@ public class AdvancedSortUtil {
          * p1和p2都没越界
          */
         while (p1 <= M && p2 <= R) {
-            help[i++] = arr[p1] <= arr[p2] ? arr[p1] : arr[p2];
+            help[i++] = arr[p1] <= arr[p2] ? arr[p1++] : arr[p2++];
         }
 
         /**
@@ -76,7 +76,7 @@ public class AdvancedSortUtil {
          * 把整体merge后的数组，拷贝到原始数组中去
          */
         for (int j = 0; j < help.length; j++) {
-            arr[L + i] = help[i];
+            arr[L + j] = help[j];
         }
 
     }
