@@ -33,8 +33,41 @@ public class LinkedListUtil {
         }
     }
 
+
     /**
-     * 传入头节点，翻转单项链表
+     * 1、检测链表是否成环。返回成环是否，第一次相遇并不保证是成环的节点
+     *
+     * @param head
+     * @return
+     */
+    public boolean hasCycle(Node head) {
+
+        if (head == null || head.next == null) {
+            return false;
+        }
+
+        Node slow = head;
+        Node fast = head.next;
+
+        while (slow != fast) {
+            if(fast == null || fast.next == null) {
+                return false;
+            }
+
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        // 有环的话一定追的上，但不一定是第一次成环的节点
+        return true;
+    }
+
+
+
+
+
+    /**
+     * 2、传入头节点，翻转单项链表
      *
      * @param head
      * @return
@@ -52,7 +85,7 @@ public class LinkedListUtil {
     }
 
     /**
-     * 移除链表中等于值的节点
+     * 3、移除链表中等于值的节点
      *
      * @param head
      * @param num
