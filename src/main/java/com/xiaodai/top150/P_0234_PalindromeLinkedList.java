@@ -21,7 +21,7 @@ public class P_0234_PalindromeLinkedList {
      * @return
      */
     public boolean isPalindrome(ListNode head) {
-        List<Integer> vals = new ArrayList<Integer>();
+        List<Integer> vals = new ArrayList<>();
 
         // 将链表的值复制到数组中
         ListNode currentNode = head;

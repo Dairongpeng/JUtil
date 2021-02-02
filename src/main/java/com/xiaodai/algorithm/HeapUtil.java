@@ -60,13 +60,14 @@ public class HeapUtil {
      */
     public int pop() {
         int ans = heap[0];
+        // 数组的最后有效位置，是heapSize-1
         swap(heap, 0, --heapSize);
         heapify(heap, 0, heapSize);
         return ans;
     }
 
     /**
-     * 往堆上添加树后，要调整继续维持大根堆结构，需要找当前位置父节点比较
+     * 往堆上添加数后，要调整继续维持大根堆结构，需要找当前位置父节点比较
      *
      * @param arr
      * @param index

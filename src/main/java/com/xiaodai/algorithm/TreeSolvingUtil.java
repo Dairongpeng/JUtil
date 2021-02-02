@@ -82,7 +82,7 @@ public class TreeSolvingUtil {
 
 
     /**
-     * 二叉树中，获取任意两个节点的最大值
+     * 二叉树中，获取任意两个节点的最大距离
      *
      * @param head
      * @return

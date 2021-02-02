@@ -22,8 +22,11 @@ public class P_0005_LongestPalindromicSubstring {
             return s;
         }
 
+        // 全局最大回文长度
         int res = 1;
+        // 全局最大回文长度对应的左位置
         int ll = 0;
+        // 全局最大回文长度对应的右位置
         int rr = 0;
 
 

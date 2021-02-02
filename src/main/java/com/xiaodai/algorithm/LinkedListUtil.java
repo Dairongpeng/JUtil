@@ -87,6 +87,8 @@ public class LinkedListUtil {
     /**
      * 3、移除链表中等于值的节点
      *
+     * 例如：1->2->3->3->4->5->3, 和 val = 3, 你需要返回删除3之后的链表：1->2->4->5。
+     *
      * @param head
      * @param num
      * @return
@@ -107,11 +109,12 @@ public class LinkedListUtil {
 
         // 快慢指针
         while (cur != null) {
-            if (cur.value == num) {
+            if (cur.value == num) { // 快指针cur向下滑动，如果值等于num，则暂时把下一个节点给慢指针的下一个指向。从而跳过等于num的节点
                 pre.next = cur.next;
-            } else {
+            } else { // cur此时到了不等于num的节点，则慢指针追赶上去。达到的效果就是等于num的节点都被删掉了
                 pre = cur;
             }
+            // 快指针向下滑动
             cur = cur.next;
         }
         return head;
