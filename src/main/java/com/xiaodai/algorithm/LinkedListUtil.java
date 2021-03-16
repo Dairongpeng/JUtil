@@ -119,7 +119,9 @@ public class LinkedListUtil {
     }
 
     /**
-     * 打印两个链表的公共部分
+     * 4、打印两个有序链表的公共部分
+     * 例如：head1: 1->2->3->3->4->5 head2: 0->0->1->2->3->3->7->9
+     * 公共部分为：1 2 3 3
      * @param head1
      * @param head2
      */
@@ -140,6 +142,8 @@ public class LinkedListUtil {
         }
         System.out.println();
     }
+
+
 
     public static void main(String[] args) {
 
