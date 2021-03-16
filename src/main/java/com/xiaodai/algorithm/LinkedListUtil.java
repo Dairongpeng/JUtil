@@ -50,7 +50,7 @@ public class LinkedListUtil {
         Node fast = head.next;
 
         while (slow != fast) {
-            if(fast == null || fast.next == null) {
+            if (fast == null || fast.next == null) {
                 return false;
             }
 
@@ -61,7 +61,6 @@ public class LinkedListUtil {
         // 有环的话一定追的上，但不一定是第一次成环的节点
         return true;
     }
-
 
 
     /**
@@ -84,7 +83,7 @@ public class LinkedListUtil {
 
     /**
      * 3、移除链表中等于值的节点
-     *
+     * <p>
      * 例如：1->2->3->3->4->5->3, 和 val = 3, 你需要返回删除3之后的链表：1->2->4->5。
      *
      * @param head
@@ -122,6 +121,7 @@ public class LinkedListUtil {
      * 4、打印两个有序链表的公共部分
      * 例如：head1: 1->2->3->3->4->5 head2: 0->0->1->2->3->3->7->9
      * 公共部分为：1 2 3 3
+     *
      * @param head1
      * @param head2
      */
@@ -130,7 +130,7 @@ public class LinkedListUtil {
         System.out.println("Common Part: ");
 
         while (head1 != null && head2 != null) {
-            if(head1.value < head2.value) {
+            if (head1.value < head2.value) {
                 head1 = head1.next;
             } else if (head1.value > head2.value) {
                 head2 = head2.next;
@@ -151,7 +151,7 @@ public class LinkedListUtil {
      * @return
      */
     public Node removeLastKthNode(Node head, int lastKth) {
-        if(head == null || lastKth < 1) {
+        if (head == null || lastKth < 1) {
             return head;
         }
 
@@ -164,11 +164,11 @@ public class LinkedListUtil {
         }
 
         // 需要删除的是头结点
-        if(lastKth == 0) {
+        if (lastKth == 0) {
             head = head.next;
         }
 
-        if(lastKth < 0) {
+        if (lastKth < 0) {
             // cur回到头结点
             cur = head;
             while (++lastKth != 0) {
@@ -185,17 +185,18 @@ public class LinkedListUtil {
     /**
      * 6、删除链表中间节点
      * 思路：如果链表为空或者只有一个节点，不做处理。链表两个节点删除第一个节点，链表三个节点，删除中间第二个节点，链表四个节点，删除上中点
+     *
      * @param head
      * @return
      */
     public Node removeMidNode(Node head) {
         // 无节点，或者只有一个节点的情况，直接返回
-        if(head == null || head.next == null) {
+        if (head == null || head.next == null) {
             return head;
         }
 
         // 链表两个节点，删除第一个节点
-        if(head.next.next == null) {
+        if (head.next.next == null) {
             return head.next;
         }
 
@@ -203,7 +204,7 @@ public class LinkedListUtil {
         Node cur = head.next.next;
 
         // 快慢指针
-        if(cur.next != null && cur.next.next != null) {
+        if (cur.next != null && cur.next.next != null) {
             pre = pre.next;
             cur = cur.next.next;
         }
@@ -214,6 +215,48 @@ public class LinkedListUtil {
         return head;
     }
 
+    /**
+     * 7、给定一个链表，如果成环，返回成环的那个节点
+     *
+     * 思路：
+     * 1. 快慢指针fast和slow，开始时，fast和slow都指向头节点，fast每次走两步，slow每次走一步
+     * 2. 快指针向下移动的过程中，如果提前到达null，则链表无环，提前结束
+     * 3. 如果该链表成环，那么fast和slow一定在环中的某个位置相遇
+     * 4. 相遇后，立刻让fast回到head头结点，slow不动，fast走两步改为每次走一步。fast和slow共同向下滑动，再次相遇，就是成环节点
+     *
+     * @param head
+     * @return
+     */
+    public Node getLoopNode(Node head) {
+        // 节点数目不足以成环，返回不存在成环节点
+        if(head == null || head.next == null || head.next.next == null) {
+            return null;
+        }
+
+        Node n1 = head.next; // slow指针
+        Node n2 = head.next.next; // fast指针
+
+        while (n1 != n2) {
+            // 快指针提前到达终点，该链表无环
+            if(n2.next == null || n2.next.next == null) {
+                return null;
+            }
+
+            n2 = n2.next.next;
+            n1 = n1.next;
+        }
+
+        // 确定成环，n2回到头节点
+        n2 = head;
+
+        while (n1 != n2) {
+            n2 = n2.next;
+            n1 = n1.next;
+        }
+
+        // 再次相遇节点，就是成环节点
+        return n1;
+    }
 
     public static void main(String[] args) {
 
