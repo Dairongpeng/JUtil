@@ -217,7 +217,7 @@ public class LinkedListUtil {
 
     /**
      * 7、给定一个链表，如果成环，返回成环的那个节点
-     *
+     * <p>
      * 思路：
      * 1. 快慢指针fast和slow，开始时，fast和slow都指向头节点，fast每次走两步，slow每次走一步
      * 2. 快指针向下移动的过程中，如果提前到达null，则链表无环，提前结束
@@ -229,7 +229,7 @@ public class LinkedListUtil {
      */
     public Node getLoopNode(Node head) {
         // 节点数目不足以成环，返回不存在成环节点
-        if(head == null || head.next == null || head.next.next == null) {
+        if (head == null || head.next == null || head.next.next == null) {
             return null;
         }
 
@@ -238,7 +238,7 @@ public class LinkedListUtil {
 
         while (n1 != n2) {
             // 快指针提前到达终点，该链表无环
-            if(n2.next == null || n2.next.next == null) {
+            if (n2.next == null || n2.next.next == null) {
                 return null;
             }
 
@@ -256,6 +256,62 @@ public class LinkedListUtil {
 
         // 再次相遇节点，就是成环节点
         return n1;
+    }
+
+    /**
+     * 由于单链表，两个链表相交要不然两个无环链表相交，最后是公共部分；要不然两个链表相交，最后是成环部分
+     * <p>
+     * 8、判断两个无环链表是否相交，相交则返回相交的第一个节点
+     * <p>
+     * 思路：
+     * 1. 链表1从头结点遍历，统计长度，和最后节点end1
+     * 2. 链表2从头结点遍历，统计长度，和最后节点end2
+     * 3. 如果end1不等一end2则一定不相交，如果相等则相交，算长度差，长的链表遍历到长度差的长度位置，两个链表就汇合在该位置
+     *
+     * @param head1
+     * @param head2
+     * @return
+     */
+    public Node noLoop(Node head1, Node head2) {
+        if (head1 == null || head2 == null) {
+            return null;
+        }
+
+        Node cur1 = head1;
+        Node cur2 = head2;
+        int n = 0;
+
+        while (cur1.next != null) {
+            n++;
+            cur1 = cur1.next;
+        }
+
+        while (cur2.next != null) {
+            n--;
+            cur2 = cur2.next;
+        }
+
+        // 最终没汇聚，说明两个链表不相交
+        if(cur1 != cur2) {
+            return null;
+        }
+
+        cur1 = n > 0 ? cur1 : cur2;
+        cur2 = cur1 == head1? head2 : head1;
+        n = Math.abs(n);
+
+        while (n != 0) {
+            n--;
+            cur1 = cur1.next;
+        }
+
+        while (cur1 != cur2) {
+            cur1 = cur1.next;
+            cur2 = cur2.next;
+        }
+
+        return cur1;
+
     }
 
     public static void main(String[] args) {
