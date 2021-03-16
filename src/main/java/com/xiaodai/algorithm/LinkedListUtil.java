@@ -1,5 +1,7 @@
 package com.xiaodai.algorithm;
 
+import com.xiaodai.top150.P_0021_MergeTowSortedLists;
+
 /**
  * Author ：dai
  * Date   ：2020/12/25 5:04 下午
@@ -297,7 +299,7 @@ public class LinkedListUtil {
         }
 
         cur1 = n > 0 ? cur1 : cur2;
-        cur2 = cur1 == head1? head2 : head1;
+        cur2 = cur1 == head1 ? head2 : head1;
         n = Math.abs(n);
 
         while (n != 0) {
@@ -312,6 +314,46 @@ public class LinkedListUtil {
 
         return cur1;
 
+    }
+
+    /**
+     * 9、合并两个有序链表
+     * @param head1
+     * @param head2
+     * @return
+     */
+    public Node mergeTwoList(Node head1, Node head2) {
+        // base case
+        if (head1 == null || head2 == null) {
+            return head1 == null ? head2 : head1;
+        }
+
+        // 选出两个链表较小的头作为整个合并后的头结点
+        Node head = head1.value <= head2.value ? head1 : head2;
+        // 链表1的准备合并的节点，就是头结点的下一个节点
+        Node cur1 = head.next;
+        // 链表2的准备合并的节点，就是另一个链表的头结点
+        Node cur2 = head == head1 ? head2 : head1;
+
+        // 最终要返回的头结点，预存为head，使用引用拷贝的pre向下移动
+        Node pre = head;
+        while (cur1 != null && cur2 != null) {
+            if (cur1.value <= cur2.value) {
+                pre.next = cur1;
+                // 向下滑动
+                cur1 = cur1.next;
+            } else {
+                pre.next = cur2;
+                // 向下滑动
+                cur2 = cur2.next;
+            }
+            // pre向下滑动
+            pre = pre.next;
+        }
+
+        // 有一个链表耗尽了，没耗尽的链表直接拼上
+        pre.next = cur1 != null ? cur1 : cur2;
+        return head;
     }
 
     public static void main(String[] args) {
