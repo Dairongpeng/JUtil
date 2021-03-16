@@ -143,6 +143,44 @@ public class LinkedListUtil {
         System.out.println();
     }
 
+    /**
+     * 5、删除单链表的倒数第k个节点
+     *
+     * @param head
+     * @param lastKth
+     * @return
+     */
+    public Node removeLastKthNode(Node head, int lastKth) {
+        if(head == null || lastKth < 1) {
+            return head;
+        }
+
+        // cur指针也指向链表头节点
+        Node cur = head;
+        // 检查倒数第lastKth个节点的合法性
+        while (cur != null) {
+            lastKth--;
+            cur = cur.next;
+        }
+
+        // 需要删除的是头结点
+        if(lastKth == 0) {
+            head = head.next;
+        }
+
+        if(lastKth < 0) {
+            // cur回到头结点
+            cur = head;
+            while (++lastKth != 0) {
+                cur = cur.next;
+            }
+            // 次吃cur就是要删除的前一个节点。把原cur.next删除
+            cur.next = cur.next.next;
+        }
+
+        // lastKth > 0的情况，表示倒数第lastKth节点比原链表程度要大，即不存在
+        return head;
+    }
 
 
     public static void main(String[] args) {
