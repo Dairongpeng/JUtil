@@ -182,6 +182,38 @@ public class LinkedListUtil {
         return head;
     }
 
+    /**
+     * 6、删除链表中间节点
+     * 思路：如果链表为空或者只有一个节点，不做处理。链表两个节点删除第一个节点，链表三个节点，删除中间第二个节点，链表四个节点，删除上中点
+     * @param head
+     * @return
+     */
+    public Node removeMidNode(Node head) {
+        // 无节点，或者只有一个节点的情况，直接返回
+        if(head == null || head.next == null) {
+            return head;
+        }
+
+        // 链表两个节点，删除第一个节点
+        if(head.next.next == null) {
+            return head.next;
+        }
+
+        Node pre = head;
+        Node cur = head.next.next;
+
+        // 快慢指针
+        if(cur.next != null && cur.next.next != null) {
+            pre = pre.next;
+            cur = cur.next.next;
+        }
+
+        // 快指针走到尽头，慢指针奇数长度停留在中点，偶数长度停留在上中点。删除该节点
+        pre.next = pre.next.next;
+
+        return head;
+    }
+
 
     public static void main(String[] args) {
 
