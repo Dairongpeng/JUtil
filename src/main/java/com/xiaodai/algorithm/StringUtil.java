@@ -114,6 +114,26 @@ public class StringUtil {
         return s1 + "_" + s2 + (s3.equals("") ? s3 : "_" + s3);
     }
 
+    /**
+     * 4、判断字符数组中，是否所有的字符均出现一次
+     * @param chars
+     * @return
+     */
+    public boolean isUnique(char[] chars) {
+        if(chars == null) {
+            return true;
+        }
+
+        boolean[] map = new boolean[256];
+        for (int i = 0; i < chars.length; i++) {
+            if(map[chars[i]]) {
+                return false;
+            }
+            map[chars[i]] = true;
+        }
+        return true;
+    }
+
 
     public static void main(String[] args) {
 
