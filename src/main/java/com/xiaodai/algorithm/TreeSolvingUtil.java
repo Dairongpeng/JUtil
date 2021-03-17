@@ -1,5 +1,10 @@
 package com.xiaodai.algorithm;
 
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Queue;
+
 /**
  * Author ：dai
  * Date ：2020/12/30 2:56 下午
@@ -22,7 +27,7 @@ public class TreeSolvingUtil {
 
 
     /**
-     * 判断二叉树是否是平衡的
+     * 1、判断二叉树是否是平衡的
      *
      * @param head
      * @return
@@ -34,8 +39,8 @@ public class TreeSolvingUtil {
     }
 
     /**
-     * 1、递归调用，head传入整体需要返回一个信息
-     * 2、解决当前节点的Info信息怎么得来
+     * 1. 递归调用，head传入整体需要返回一个信息
+     * 2. 解决当前节点的Info信息怎么得来
      *
      * @param head
      * @return
@@ -82,7 +87,7 @@ public class TreeSolvingUtil {
 
 
     /**
-     * 二叉树中，获取任意两个节点的最大距离
+     * 2、二叉树中，获取任意两个节点的最大距离
      *
      * @param head
      * @return
@@ -129,7 +134,7 @@ public class TreeSolvingUtil {
 
 
     /**
-     * 判断一颗树是否是满二叉树
+     * 3、判断一颗树是否是满二叉树
      *
      * @param head
      * @return
@@ -183,6 +188,85 @@ public class TreeSolvingUtil {
         return new IsFullInfo(height, nodes);
 
     }
+
+    /**
+     * 4、找到二叉树中节点和等于sum的最长路径
+     * @param head
+     * @param sum
+     * @return
+     */
+    public int getMaxLength(Node head, int sum) {
+        Map<Integer, Integer> sumMap = new HashMap<>();
+        sumMap.put(0, 0); // 重要
+        return preOrder(head, sum, 0, 1, 0, sumMap);
+    }
+
+    private int preOrder(Node head, int sum, int preSum, int level, int maxLen, Map<Integer, Integer> sumMap) {
+        if(head == null) {
+            return maxLen;
+        }
+
+        int curSum = preSum + head.value;
+        if(!sumMap.containsKey(curSum)) {
+            sumMap.put(curSum, level);
+        }
+
+        if(sumMap.containsKey(curSum - sum)) {
+            maxLen = Math.max(level - sumMap.get(curSum - sum), maxLen);
+        }
+        maxLen = preOrder(head.left, sum, curSum, level + 1, maxLen, sumMap);
+        maxLen = preOrder(head.right, sum, curSum, level + 1, maxLen, sumMap);
+
+        if(level == sumMap.get(curSum)) {
+            sumMap.remove(curSum);
+        }
+
+        return maxLen;
+    }
+
+    /**
+     * 5、二叉树按层打印
+     *
+     *  last：表示正在打印的当前行的最右节点
+     *  nLast：表示下一行的最右节点
+     */
+    public void printByLevel(Node head) {
+        if(head == null) {
+            return;
+        }
+
+        Queue<Node> queue = new LinkedList<>();
+        int level = 1;
+        Node last = head;
+        Node nLast = null;
+        queue.offer(head);
+        System.out.println("Level " + (level++) + " : ");
+        while (!queue.isEmpty()) {
+            head = queue.poll();
+            System.out.println(head.value + " ");
+            if(head.left != null) {
+                queue.offer(head.left);
+                nLast = head.left;
+            }
+            if(head.right != null) {
+                queue.offer(head.right);
+                nLast = head.right;
+            }
+            if(head == last && !queue.isEmpty()) {
+                System.out.println("\nLevel " + (level++) + " ");
+                last = nLast;
+            }
+        }
+        System.out.println();
+    }
+
+    /**
+     * 6、二叉树zigzag打印
+     */
+
+    /**
+     * 7、二叉树，给定量给节点，求这两个节点的最近公共祖先
+     */
 
     /**
      * 随机生成一颗二叉树
